@@ -92,6 +92,6 @@ public class BackgroundRemovalServiceImpl implements BackgroundRemovalService {
             return baseName + "no-bg" + extension;
         }
 
-        throw new UnsupportedFormatException("The image format is not supported");
+            throw new UnsupportedFormatException("The image format is not supported");
     }
 }
