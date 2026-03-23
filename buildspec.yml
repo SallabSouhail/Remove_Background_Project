@@ -40,9 +40,9 @@ phases:
           echo "Skipping SonarQube analysis because SONAR_HOST_URL, SONAR_PROJECT_KEY, or SONAR_TOKEN is not set."
         fi
       - echo "Building Docker image..."
-      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG -t $IMAGE_REPO_NAME:latest ./server
-      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $IMAGE_REPO_URI:$IMAGE_TAG
-      - docker tag $IMAGE_REPO_NAME:latest $IMAGE_REPO_URI:latest
+      - docker build -t $IMAGE_REPO_URI:$IMAGE_TAG -t $IMAGE_REPO_URI:latest ./server
+      - docker tag $IMAGE_REPO_URI:$IMAGE_TAG $IMAGE_REPO_URI:$IMAGE_TAG
+      - docker tag $IMAGE_REPO_URI:latest $IMAGE_REPO_URI:latest
 
   post_build:
     commands:
