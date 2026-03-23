@@ -4,7 +4,7 @@ FROM eclipse-temurin:21-jre-jammy
 
 WORKDIR /app
 
-COPY --from=build /app/target/*.jar /app/removebg.jar
+COPY ./target/*.jar /app/removebg.jar
 
 EXPOSE 8080
 
