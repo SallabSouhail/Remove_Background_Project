@@ -17,6 +17,7 @@ public class RemoveBgWebClientConfig {
         return WebClient.builder()
                 .baseUrl(baseUrl)
                 .defaultHeader("X-Api-Key",apiKey)
+                .codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(10 * 1024 * 1024)) // 10 MB
                 .build();
     }
 }
