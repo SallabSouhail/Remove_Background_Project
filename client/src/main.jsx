@@ -1,16 +1,32 @@
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import {BrowserRouter} from "react-router-dom";
-import {ClerkProvider} from "@clerk/clerk-react";
-import {appConfig, requireConfigValue} from "./config/appConfig.js";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import "./index.css";
+import { appConfig, requireConfigValue } from "./config/appConfig.js";
 
+const root = createRoot(document.getElementById("root"));
 const publishableKey = requireConfigValue("VITE_CLERK_PUBLISHABLE_KEY", appConfig.clerkPublishableKey);
 
-createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-    <ClerkProvider publishableKey={publishableKey}>
+async function bootstrap() {
+  await import("./browserCompat.js");
+
+  const [{ ClerkProvider }, { default: App }] = await Promise.all([
+    import("@clerk/clerk-react"),
+    import("./App.jsx"),
+  ]);
+
+  root.render(
+    <BrowserRouter>
+      <ClerkProvider
+        publishableKey={publishableKey}
+        clerkJSVersion={appConfig.clerkJsVersion}
+      >
         <App />
-    </ClerkProvider>
-  </BrowserRouter>,
-)
+      </ClerkProvider>
+    </BrowserRouter>,
+  );
+}
+
+bootstrap().catch((error) => {
+  console.error("Failed to bootstrap the application.", error);
+  throw error;
+});
