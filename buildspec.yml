@@ -50,7 +50,7 @@ phases:
       - echo "Pushing Docker images to ECR..."
       - docker push $IMAGE_REPO_URI:$IMAGE_TAG
       - docker push $IMAGE_REPO_URI:latest
-      - printf '[{"name":"removebg-api","imageUri":"%s"}]' "$IMAGE_REPO_URI:$IMAGE_TAG" > imagedefinitions.json
+      - printf '[{"name":"removebg-container","imageUri":"%s"}]' "$IMAGE_REPO_URI:$IMAGE_TAG" > imagedefinitions.json
       - echo "Build completed on $(date)"
 
 reports:
